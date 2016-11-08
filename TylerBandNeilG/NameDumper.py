@@ -17,8 +17,18 @@ def main():
     test_dumpFileList()
 
 def dumpFileList(folder, dumpFile):
+    outFile = open(dumpFile, 'w')
     directory = os.listdir(folder)
-    print directory
+    for i in directory +1:
+        outFile.write(i)
+        i += 1
+    outFile.close()
+    return dumpFile
+
+
+
+
+
 
 
 
