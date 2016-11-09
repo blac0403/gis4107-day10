@@ -13,7 +13,11 @@ _fmtPassed = "Passed: {}"
 _fmtFailed = "Failed: {}\n  Expect: {}\n  Actual: {}"
 _scriptFolder = os.path.dirname(os.path.abspath(__file__))
 
+
+
 def main():
+    if len(sys.argv) == 3:
+        dumpFileList(sys.argv[1], sys.argv[2])
     test_dumpFileList()
 
 def dumpFileList(folder, dumpFile):
@@ -31,7 +35,7 @@ def dumpFileList(folder, dumpFile):
         inFile.close()
         return inText
     else:
-        return folder + "was not found"
+        return folder + " was not found"
 
 
 
@@ -42,7 +46,7 @@ C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\fileDemo.txt
 C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\FileUtils.py
 C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\NameDumper.py"""
     func = "dumpFileList"
-    actual = dumpFileList(r"C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG", "dumpydump.txt")
+    actual = dumpFileList(r"C:\acgis\gis4107\day10\lab\\TylerBandNeilG", "dumpydump.txt")
 
     if expected == actual:
         print _fmtPassed.format("func1(params)")
