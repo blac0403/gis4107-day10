@@ -17,34 +17,37 @@ def main():
     test_dumpFileList()
 
 def dumpFileList(folder, dumpFile):
-    outFile = open(dumpFile, 'w')
-    directory = os.listdir(folder)
-    for i in directory +1:
-        outFile.write(i)
-        i += 1
-    outFile.close()
-    return dumpFile
+    dumpList =[]
+    if os.path.exists(folder):
+        for fileDir in os.listdir(folder):
+            dumpList.append(os.path.abspath(fileDir))
 
+        outFile = open(dumpFile, 'w')
+        for fileName in dumpList:
+            outFile.write("%s\n"% fileName)
+        outFile.close()
+        inFile = open(dumpFile, 'r')
+        inText= inFile.read()
+        inFile.close()
+        return inText
+    else:
+        return folder + "was not found"
 
-
-
-
-
-
-
-##    os.listdir(path) os.path.isfile(path), os.path.abspath(path)
 
 
 def test_dumpFileList():
-    pass
-    # Test case 1
-##    expected = "expected value"
-##    func = "func1"
-##    actual = func1(1)
-##    if expected == actual:
-##        print _fmtPassed.format("func1(params)")
-##    else:
-##        print _fmtFailed.format(func, expected, actual)
+    expected = r"""C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\dumpydump.txt
+C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\ExerciseTemplate.py
+C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\fileDemo.txt
+C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\FileUtils.py
+C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\NameDumper.py"""
+    func = "dumpFileList"
+    actual = dumpFileList(r"C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG", "dumpydump.txt")
+
+    if expected == actual:
+        print _fmtPassed.format("func1(params)")
+    else:
+        print _fmtFailed.format(func, expected, actual)
 
     # Test case 2 ...
 
