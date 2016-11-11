@@ -17,22 +17,33 @@ _fmtFailed = "Failed: {}\n  Expect: {}\n  Actual: {}"
 _scriptFolder = os.path.dirname(os.path.abspath(__file__))
 
 def main():
-    test_getKmlPlacemark()
+    #test_getKmlPlacemark()
+    test_exportToKml()
 
 def exportToKml(inFile, outKml):
+    kmlList = []
+    outFile = open(outKml, 'w')
     for inText in open(inFile):
+        #inFile.readlines()[1:]
         list(inText)
-        inText.split(',')
+        kmlList.append(inText)
+        [x.strip() for x in kmlList.split(',')]
 
-        lat = inText[1]
-        lon = inText[2]
-        depth = inText[3]
-        mag = inText[4]
+        lat = kmlList[0]
+        lon = kmlList[0]
+        depth = kmlList[0]
+        mag = kmlList[0]
 
         header = getKmlHeader()
         body = getKmlPlacemark(lon,lat,depth,mag)
         footer = getKmlFooter()
-        return header,body,footer
+
+        outFile.write(header +body +footer)
+
+    print kmlList
+
+    outFile.close()
+
 
 def getKmlHeader():
     return " <?xml version=1.0 encoding=UTF-8?> \n <kml xmlns=http://www.opengis.net/kml/2.2>"
@@ -46,6 +57,9 @@ def getKmlFooter():
 
 def test_getKmlPlacemark():
     print getKmlPlacemark(-116.355, 34.692, 12.3, 1.21)
+
+def test_exportToKml():
+    exportToKml(r"C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\quakes2000\quakes2000.txt", "Kml_quakes2000.txt")
 
 if __name__ == '__main__':
     main()
