@@ -21,18 +21,16 @@ def main():
     test_exportToKml()
 
 def exportToKml(inFile, outKml):
-    kmlList = []
     outFile = open(outKml, 'w')
-    for inText in open(inFile):
-        #inFile.readlines()[1:]
-        list(inText)
-        kmlList.append(inText)
-        [x.strip() for x in kmlList.split(',')]
 
-        lat = kmlList[0]
-        lon = kmlList[0]
-        depth = kmlList[0]
-        mag = kmlList[0]
+    inText = open(inFile, 'r')
+
+    for line in inText:
+        kmlList = line.split(',')
+        lat = kmlList[1]
+        lon = kmlList[2]
+        depth = kmlList[3]
+        mag = kmlList[4]
 
         header = getKmlHeader()
         body = getKmlPlacemark(lon,lat,depth,mag)
@@ -50,13 +48,13 @@ def getKmlHeader():
 
 
 def getKmlPlacemark(longitude, latitude, depth, magnitude):
-    return " <Placemark> \n  <name> %s </name> \n  <description> Mag=%s, Depth =%s km  </description> \n  <Point> \n   <coordinates>%s,%s</coordinates> \n  </Point>\n  </Placement>" % (magnitude,magnitude,depth,longitude,latitude)
+    return " <Placemark> \n  <name> %s </name> \n  <description> Mag=%s Depth =%s km  </description> \n  <Point> \n   <coordinates>%s,%s</coordinates> \n  </Point>\n  </Placement>" % (magnitude,magnitude,depth,longitude,latitude)
 
 def getKmlFooter():
     return "</Document> \n </kml>"
 
-def test_getKmlPlacemark():
-    print getKmlPlacemark(-116.355, 34.692, 12.3, 1.21)
+##def test_getKmlPlacemark():
+##    print getKmlPlacemark(-116.355, 34.692, 12.3, 1.21)
 
 def test_exportToKml():
     exportToKml(r"C:\acgis\gis4107\day10\lab\TylerBandNeilG\TylerBandNeilG\quakes2000\quakes2000.txt", "Kml_quakes2000.txt")
